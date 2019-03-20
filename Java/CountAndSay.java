@@ -1,35 +1,25 @@
 package leetcode;
 
 public class CountAndSay {
-
-	public static void main(String[] args) {
-		char[] result = countAndSay(4);
-		System.out.println(result);
+    public String countAndSay(int n) {
+	if (n == 1) {
+	    return "1";
 	}
-
-	public static char[] countAndSay(int n) {
-
-		String number = "1";
-		char[] numbarray = number.toCharArray();
-		int i = 1;
-		int count = 0;
-		int currentNumber = Character.getNumericValue(numbarray[0]);
-		while (i < n) {
-			for (char ch : numbarray) {
-				if (Character.getNumericValue(ch) == currentNumber) {
-					count++;
-				} else {
-					numbarray = (String.valueOf(count) + currentNumber).toCharArray();
-					currentNumber = Character.getNumericValue(ch);
-				}
-			}
-			numbarray = (String.valueOf(count) + currentNumber).toCharArray();
-			i++;
-			count = 0;
-			currentNumber = Character.getNumericValue(numbarray[0]);
-		}
-
-		return numbarray;
-
+	String prevResult = countAndSay(n - 1);
+	int count = 0;
+	int i = 0;
+	int length = prevResult.length();
+	StringBuilder sb = new StringBuilder();
+	while (i < length) {
+	    count++;
+	    char ch = prevResult.charAt(i);
+	    if (i + 1 >= length || ch != prevResult.charAt(i + 1)) {
+		sb.append(count);
+		sb.append(ch);
+		count = 0;
+	    }
+	    i++;
 	}
+	return sb.toString();
+    }
 }
